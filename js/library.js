@@ -207,6 +207,18 @@ const adventure = umeayo.createBook({
   status: 'Not Read',
   author: 'Dudeonyx',
 });
+const story = umeayo.createBook({
+  title: 'Stories in JS',
+  pages: 128,
+  status: 'Read',
+  author: 'Dudeonyx',
+});
+umeayo.createBook({
+  title: 'Wonders of JS',
+  pages: 512,
+  status: 'Read',
+  author: 'Dudeonyx',
+});
 
 function $(element = document) {
   return selector => element.querySelector(selector);
@@ -221,17 +233,35 @@ const shelf = $()('.shelf');
 
 const testBook = $Create('div');
 testBook.classList.add('book');
-shelf.appendChild(testBook);
+// shelf.appendChild(testBook);
 const fgh = $(shelf)('.book');
-(function addBookToShelf() {
-  umeayo.displayShelf().forEach((book) => {
-    const { title, author, status, pages } = book.details();
+(function addAllBooksToShelf() {
+  umeayo.displayShelf().forEach((book, index) => {
+    const {
+      title, author, status, pages,
+    } = book.details();
     const bookElement = $Create('div');
     bookElement.classList.add('book');
-    const titleField = $Create('p');
-    const authorField = $Create('p');
-    const statusField = $Create('p');
-    const pagesField = $Create('p');
-    
+    bookElement.id = index;
+    const titleField = bookElement.appendChild($Create('p'));
+    const authorField = bookElement.appendChild($Create('p'));
+    const pagesField = bookElement.appendChild($Create('p'));
+    const statusField = bookElement.appendChild($Create('p'));
+    titleField.setAttribute('data-title', title);
+    authorField.setAttribute('data-author', author);
+    pagesField.setAttribute('data-pages', pages);
+    statusField.setAttribute('data-status', status);
+    titleField.textContent = `Title: ${title}`;
+    authorField.textContent = `Author: ${author}`;
+    pagesField.textContent = `Pages: ${pages}`;
+    statusField.textContent = `Status: ${status}`;
+    Object.entries(book.details()).forEach((key) => {
+      if (key[0] !== 'Library') {
+        const field = bookElement.appendChild($Create('p'));
+        field.textContent = `${titleCase(key[0])}: ${key[1]}`;
+        field.setAttribute(`data-${key[0]}`, key[1]);
+      }
+    });
+    shelf.appendChild(bookElement);
   });
 }());
