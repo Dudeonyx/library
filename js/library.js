@@ -243,18 +243,6 @@ const fgh = $(shelf)('.book');
     const bookElement = $Create('div');
     bookElement.classList.add('book');
     bookElement.id = index;
-    const titleField = bookElement.appendChild($Create('p'));
-    const authorField = bookElement.appendChild($Create('p'));
-    const pagesField = bookElement.appendChild($Create('p'));
-    const statusField = bookElement.appendChild($Create('p'));
-    titleField.setAttribute('data-title', title);
-    authorField.setAttribute('data-author', author);
-    pagesField.setAttribute('data-pages', pages);
-    statusField.setAttribute('data-status', status);
-    titleField.textContent = `Title: ${title}`;
-    authorField.textContent = `Author: ${author}`;
-    pagesField.textContent = `Pages: ${pages}`;
-    statusField.textContent = `Status: ${status}`;
     Object.entries(book.details()).forEach((key) => {
       if (key[0] !== 'Library') {
         const field = bookElement.appendChild($Create('p'));
