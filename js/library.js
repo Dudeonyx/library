@@ -93,10 +93,11 @@ const libraryModule = (() => {
           return this;
         },
       }),
+      allUsers: () => libraryList,
       showLibraryList: () => libraryList.reduce((acc, val) => `${acc}'${val.username}', `, '').replace(/, $/, ''),
     };
   }
-  const { showLibraryList, withAddToLibraryList } = LibraryList([]);
+  const { showLibraryList, allUsers, withAddToLibraryList } = LibraryList([]);
   function Library(user) {
     const username = titleCase(user);
     function withShelfFunctions(shelf = []) {
@@ -109,6 +110,14 @@ const libraryModule = (() => {
         },
         displayShelf() {
           return shelf.concat();
+        },
+        deleteBookByIndex(bookIndex) {
+          if (bookIndex > shelf.length) {
+            throw new Error(`No book with index: ${bookIndex} exists in ${username}'s Library`);
+          }
+          const deletedBookTitle = shelf[bookIndex].title;
+          shelf.splice(bookIndex, 1);
+          return `'${deletedBookTitle}' has been deleted from ${username}'s Library`;
         },
         saveBook(book) {
           // const { shelf } = this;
@@ -135,7 +144,7 @@ const libraryModule = (() => {
     function Book(bookObject, owner = username) {
       const { title = 'Unknown', author = 'Unknown', pages = 0 } = bookObject;
       let status = bookObject.status ? titleCase(bookObject.status) : 'Not Read';
-      const bookIndex = this.displayShelf().findIndex(book => book.title === title);
+      const bookIndex = this.displayShelf().findIndex(book => (book.title === title) && (book.author === author));
       // check if another book with the same name is already in the shelf
       if (bookIndex > -1) {
         throw new Error(`A book titled:'${title}' already exists in ${username}'s Library`);
@@ -170,6 +179,9 @@ const libraryModule = (() => {
         get title() {
           return title;
         },
+        get author() {
+          return author;
+        },
         details,
         get owner() {
           return owner;
@@ -195,27 +207,40 @@ const libraryModule = (() => {
     return Object.freeze(newLibrary);
   }
   Library.showLibraryList = showLibraryList;
+  Library.allUsers = allUsers;
   // Library.addToLibraryList = addToLibraryList;
   return { Library, myObject };
 })();
 
 const { Library } = libraryModule;
 const umeayo = Library('Umeayo');
-const adventure = umeayo.createBook({
-  title: 'Adventures in JS',
-  pages: 256,
-  status: 'Not Read',
-  author: 'Dudeonyx',
-});
 const story = umeayo.createBook({
   title: 'Stories in JS',
   pages: 128,
   status: 'Read',
   author: 'Dudeonyx',
 });
+const adventure = umeayo.createBook({
+  title: 'Adventures in JS',
+  pages: 256,
+  status: 'Not Read',
+  author: 'Dudeonyx',
+});
 umeayo.createBook({
   title: 'Wonders of JS',
   pages: 512,
+  status: 'Read',
+  author: 'Dudeonyx',
+});
+umeayo.createBook({
+  title: 'JS',
+  pages: 1024,
+  status: 'Read',
+  author: 'Dudeonyx',
+});
+umeayo.createBook({
+  title: 'SuperJS',
+  pages: 2048,
   status: 'Read',
   author: 'Dudeonyx',
 });
@@ -234,22 +259,48 @@ const shelf = $()('.shelf');
 const testBook = $Create('div');
 testBook.classList.add('book');
 // shelf.appendChild(testBook);
-const fgh = $(shelf)('.book');
-(function addAllBooksToShelf() {
-  umeayo.displayShelf().forEach((book, index) => {
-    const {
-      title, author, status, pages,
-    } = book.details();
+function addAllBooksToShelf(library = Library.allUsers()[0]) {
+  shelf.innerHTML = '';
+  library.displayShelf().forEach((book, index) => {
     const bookElement = $Create('div');
     bookElement.classList.add('book');
     bookElement.id = index;
+    // bookElement.setAttribute('data-title', book.details().title);
     Object.entries(book.details()).forEach((key) => {
       if (key[0] !== 'Library') {
-        const field = bookElement.appendChild($Create('p'));
-        field.textContent = `${titleCase(key[0])}: ${key[1]}`;
-        field.setAttribute(`data-${key[0]}`, key[1]);
+        const div = bookElement.appendChild($Create('div'));
+        div.classList.add(`${key[0]}`);
+        const field = div.appendChild($Create('p'));
+        field.textContent = key[0] === 'title' ? key[1] : `${titleCase(key[0])}: ${key[1]}`;
+        // field.setAttribute('data-index', index);
+        // field.setAttribute(`data-${key[0]}`, key[1]);
+        if (key[0] === 'status') {
+          field.addEventListener('click', () => {
+            book.toggleRead();
+            addAllBooksToShelf();
+          });
+        }
+      }
+    });
+    const deleteDiv = bookElement.appendChild($Create('div'));
+    const deleteButton = deleteDiv.appendChild($Create('p'));
+    deleteDiv.classList.add('delete');
+    deleteButton.setAttribute('data-index', index);
+    deleteButton.textContent = 'Delete';
+    deleteButton.addEventListener('click', () => {
+      const titleToDelete = book.title;
+      const answer = prompt(`Are you sure you want to delete ${titleToDelete}?`, 'No');
+      if (/yes/i.test(answer)) {
+        library.deleteBookByIndex(index);
+        addAllBooksToShelf();
+        alert(`${titleToDelete} has been deleted!`);
       }
     });
     shelf.appendChild(bookElement);
   });
-}());
+}
+addAllBooksToShelf();
+/* $(shelf)('.book>.status').addEventListener('click', (evt) => {
+  console.log(evt);
+}); */
+// const fgh = $(shelf)('.book>.delete>p');
