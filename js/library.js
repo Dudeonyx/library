@@ -3,14 +3,13 @@ const titleCase = string => string.toLowerCase().replace(/^.| ./g, u => u.toUppe
 
 const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x);
 
-
 const libraryModule = (() => {
   const myObject = (() => {
     function copy(o, flag) {
       const output = Array.isArray(o) ? [] : {};
       Object.keys(o).forEach((key) => {
         const v = o[key];
-        output[key] = (typeof v === 'object' && flag === true) ? copy(v) : v;
+        output[key] = typeof v === 'object' && flag === true ? copy(v) : v;
       });
       return output;
     }
@@ -37,7 +36,9 @@ const libraryModule = (() => {
             desc.value = merge(desc.value, true);
           }
           if (prop !== 'constructor' && prop in newObject) {
-            if (!newObject.duplicateProperties) { newObject.duplicateProperties = {}; }
+            if (!newObject.duplicateProperties) {
+              newObject.duplicateProperties = {};
+            }
             Object.defineProperty(newObject.duplicateProperties, prop, desc);
           } else {
             Object.defineProperty(newObject, prop, desc);
@@ -78,73 +79,74 @@ const libraryModule = (() => {
   })();
   function LibraryList(libraryList = []) {
     return {
-      withAddToLibraryList: o => myObject.merge(o, {
-        addToLibraryList(library = this) {
-          // if (library.constructor !== Library) throw new Error('Invalid Library');
-          const libraryIndex = libraryList
-            .findIndex(entry => entry.username === library.username);
-          // check if another book with the same name is already in the shelf
-          if (libraryIndex > -1) {
-            console.log(`'${library.username}' already exists in Users`);
+      withAddToLibraryList: o =>
+        myObject.merge(o, {
+          addToLibraryList(library = this) {
+            // if (library.constructor !== Library) throw new Error('Invalid Library');
+            const libraryIndex = libraryList.findIndex(entry => entry.username === library.username);
+            // check if another book with the same name is already in the shelf
+            if (libraryIndex > -1) {
+              console.log(`'${library.username}' already exists in Users`);
+              return this;
+            }
+            libraryList.push(library);
+            // console.log(`'${library.username}' has been added to Users`);
             return this;
-          }
-          libraryList.push(library);
-          // console.log(`'${library.username}' has been added to Users`);
-          return this;
-        },
-      }),
+          },
+        }),
       allUsers: () => libraryList,
-      showLibraryList: () => libraryList.reduce((acc, val) => `${acc}'${val.username}', `, '').replace(/, $/, ''),
+      showLibraryList: () =>
+        libraryList.reduce((acc, val) => `${acc}'${val.username}', `, '').replace(/, $/, ''),
     };
   }
   const { showLibraryList, allUsers, withAddToLibraryList } = LibraryList([]);
   function Library(user) {
     const username = titleCase(user);
     function withShelfFunctions(shelf = []) {
-      return o => myObject.merge(o, {
-        get shelf() {
-          return shelf.reduce((acc, val) => `${acc}'${val.title}', `, '').replace(/, $/, '');
-        },
-        listBooks() {
-          return shelf.reduce((acc, val) => `${acc}'${val.title}', `, '').replace(/, $/, '');
-        },
-        displayShelf() {
-          return shelf.concat();
-        },
-        deleteBookByIndex(bookIndex) {
-          if (bookIndex > shelf.length) {
-            throw new Error(`No book with index: ${bookIndex} exists in ${username}'s Library`);
-          }
-          const deletedBookTitle = shelf[bookIndex].title;
-          shelf.splice(bookIndex, 1);
-          return `'${deletedBookTitle}' has been deleted from ${username}'s Library`;
-        },
-        saveBook(book) {
-          // const { shelf } = this;
-          const bookIndex = shelf.findIndex(entry => entry.title === book.title);
-          // check if another book with the same name is already in the shelf
-          if (bookIndex > -1) {
-            return `'${book.title}' already exists in ${username}'s Library`;
-          }
-          shelf.push(book);
-          return `'${book.title}' has been added to ${username}'s Library`;
-        },
-        deleteBook(book) {
-          const bookIndex = shelf
-            .findIndex(entry => entry === book || entry.title === book.title);
-          // check if book is in the shelf
-          if (bookIndex > -1) {
+      return o =>
+        myObject.merge(o, {
+          get shelf() {
+            return shelf.reduce((acc, val) => `${acc}'${val.title}', `, '').replace(/, $/, '');
+          },
+          listBooks() {
+            return shelf.reduce((acc, val) => `${acc}'${val.title}', `, '').replace(/, $/, '');
+          },
+          displayShelf() {
+            return shelf.concat();
+          },
+          deleteBookByIndex(bookIndex) {
+            if (bookIndex > shelf.length) {
+              throw new Error(`No book with index: ${bookIndex} exists in ${username}'s Library`);
+            }
+            const deletedBookTitle = shelf[bookIndex].title;
             shelf.splice(bookIndex, 1);
-            return `'${book.title}' has been deleted from ${username}'s Library`;
-          }
-          return `'${book.title}' does not exist in ${username}'s Library`;
-        },
-      });
+            return `'${deletedBookTitle}' has been deleted from ${username}'s Library`;
+          },
+          saveBook(book) {
+            // const { shelf } = this;
+            const bookIndex = shelf.findIndex(entry => entry.title === book.title);
+            // check if another book with the same name is already in the shelf
+            if (bookIndex > -1) {
+              return `'${book.title}' already exists in ${username}'s Library`;
+            }
+            shelf.push(book);
+            return `'${book.title}' has been added to ${username}'s Library`;
+          },
+          deleteBook(book) {
+            const bookIndex = shelf.findIndex(entry => entry === book || entry.title === book.title);
+            // check if book is in the shelf
+            if (bookIndex > -1) {
+              shelf.splice(bookIndex, 1);
+              return `'${book.title}' has been deleted from ${username}'s Library`;
+            }
+            return `'${book.title}' does not exist in ${username}'s Library`;
+          },
+        });
     }
     function Book(bookObject, owner = username) {
       const { title = 'Unknown', author = 'Unknown', pages = 0 } = bookObject;
       let status = bookObject.status ? titleCase(bookObject.status) : 'Not Read';
-      const bookIndex = this.displayShelf().findIndex(book => (book.title === title) && (book.author === author));
+      const bookIndex = this.displayShelf().findIndex(book => book.title === title && book.author === author);
       // check if another book with the same name is already in the shelf
       if (bookIndex > -1) {
         throw new Error(`A book titled:'${title}' already exists in ${username}'s Library`);
@@ -214,13 +216,13 @@ const libraryModule = (() => {
 
 const { Library } = libraryModule;
 const umeayo = Library('Umeayo');
-const story = umeayo.createBook({
+umeayo.createBook({
   title: 'Stories in JS',
   pages: 128,
   status: 'Read',
   author: 'Dudeonyx',
 });
-const adventure = umeayo.createBook({
+umeayo.createBook({
   title: 'Adventures in JS',
   pages: 256,
   status: 'Not Read',
