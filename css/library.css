@@ -59,7 +59,7 @@ body>div.shelf {
   display: flex;
   flex-flow: column nowrap;
   max-height: 25vh;
-  max-width: 25vh;
+  max-width: 23vh;
   border: 1px solid rgba(0, 0, 0, 0.342);
   border-radius: 1.5vh;
   padding: 2px;
