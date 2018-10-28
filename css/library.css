@@ -44,7 +44,7 @@ body>div.shelf {
   min-height: 70vh;
   min-width: 80vw;
   border: rgba(0, 0, 0, 0.301) solid 1px;
-  border-radius: 10px;
+  border-radius: 1.5vh;
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.171);
   /* filter: blur(11px); */
   background-color: rgba(255, 255, 255, 0.144);
@@ -60,7 +60,7 @@ body>div.shelf {
   max-height: 25vh;
   max-width: 25vh;
   border: 1px solid rgba(0, 0, 0, 0.342);
-  border-radius: 9px;
+  border-radius: 1.5vh;
   padding: 2px;
   background-color: rgba(255, 255, 255, 0.411);
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.507);
@@ -77,6 +77,7 @@ body>div.shelf {
   align-items: center;
   font-weight: bold;
   font-size: 2.5vh;
+  /* text-shadow: 1px -1px 0px rgb(107, 16, 16); */
   /* cursor: pointer; */
 }
 .shelf>.book>div>p {
@@ -87,7 +88,7 @@ body>div.shelf {
   box-sizing: border-box;
   /* padding-top: 1rem; */
   background-color:rgba(222, 184, 135, 0.5) ;
-  border-radius: 7px 7px 0px 0px;
+  border-radius: 1.5vh 1.5vh 0px 0px;
 }
 .shelf>.book>.author {
   flex: 1 1 20%;
@@ -107,7 +108,7 @@ body>div.shelf {
 .shelf>.book>.delete {
   flex: 1 1 15%;
   background-color:rgba(255, 0, 0, 0.438);
-  border-radius: 0px 0px 7px 7px;
+  border-radius: 0px 0px 1.5vh 1.5vh;
 }
 .shelf>.book>.title:hover {
   background-color:rgb(221, 177, 120) ;
