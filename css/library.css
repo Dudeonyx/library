@@ -22,7 +22,7 @@ header {
   background-size: 100% 110%;
   min-height: 15vh;
   /* border-radius: 10vh; */
-  min-width: 80%;
+  min-width: 80vw;
   background-repeat: no-repeat;
   background-position: center;
 }
