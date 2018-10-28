@@ -261,7 +261,7 @@ const shelf = $()('.shelf');
 const testBook = $Create('div');
 testBook.classList.add('book');
 // shelf.appendChild(testBook);
-function addAllBooksToShelf(library = Library.allUsers()[0]) {
+function addAllBooksToDOMShelf(library = Library.allUsers()[0]) {
   shelf.innerHTML = '';
   library.displayShelf().forEach((book, index) => {
     const bookElement = $Create('div');
@@ -279,7 +279,7 @@ function addAllBooksToShelf(library = Library.allUsers()[0]) {
         if (key[0] === 'status') {
           field.addEventListener('click', () => {
             book.toggleRead();
-            addAllBooksToShelf();
+            addAllBooksToDOMShelf();
           });
         }
       }
@@ -291,17 +291,17 @@ function addAllBooksToShelf(library = Library.allUsers()[0]) {
     deleteButton.textContent = 'Delete';
     deleteButton.addEventListener('click', () => {
       const titleToDelete = book.title;
-      const answer = prompt(`Are you sure you want to delete ${titleToDelete}?`, 'No');
-      if (/yes/i.test(answer)) {
+      const answer = confirm(`Are you sure you want to delete ${titleToDelete}?`);
+      if (answer) {
         library.deleteBookByIndex(index);
-        addAllBooksToShelf();
+        addAllBooksToDOMShelf();
         alert(`${titleToDelete} has been deleted!`);
       }
     });
     shelf.appendChild(bookElement);
   });
 }
-addAllBooksToShelf();
+addAllBooksToDOMShelf();
 /* $(shelf)('.book>.status').addEventListener('click', (evt) => {
   console.log(evt);
 }); */

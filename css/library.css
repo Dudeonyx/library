@@ -49,16 +49,16 @@ body>div.shelf {
   /* filter: blur(11px); */
   background-color: rgba(255, 255, 255, 0.144);
   padding: 10px;
-  /* margin-left:  -4px; */
-  justify-content: space-between;
+  /* margin-right:  -4px; */
+  justify-content: space-around;
 }
 
 .shelf>.book {
   flex: 1 1 60%;
   display: flex;
   flex-flow: column nowrap;
-  max-height: 10rem;
-  max-width: 10rem;
+  max-height: 25vh;
+  max-width: 25vh;
   border: 1px solid rgba(0, 0, 0, 0.342);
   border-radius: 9px;
   padding: 2px;
@@ -76,6 +76,7 @@ body>div.shelf {
   justify-content: center;
   align-items: center;
   font-weight: bold;
+  font-size: 2.5vh;
   /* cursor: pointer; */
 }
 .shelf>.book>div>p {
