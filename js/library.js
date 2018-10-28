@@ -300,8 +300,37 @@ function addAllBooksToDOMShelf(library = Library.allUsers()[0]) {
     });
     shelf.appendChild(bookElement);
   });
+  const addBook = $()('#addBook');
+  addBook.addEventListener('click', () => {
+    document.body.classList.add('showform');
+  });
+  // const submitBook = $()('#submiter');
+  const newBookForm = $()('#newBookForm');
+  newBookForm.addEventListener('submit', () => {
+    if (newBookForm.reportValidity()) {
+      const title = newBookForm.title.value;
+      const author = titleCase(newBookForm.author.value);
+      const status = newBookForm.status.value;
+      const pages = newBookForm.pages.value;
+      library.createBook({
+        title,
+        author,
+        pages,
+        status,
+      });
+      addAllBooksToDOMShelf();
+      // document.body.classList.remove('showform');
+      newBookForm.reset();
+    }
+  }, true);
+  // const resetBook = $()('#reseter');
+  newBookForm.addEventListener('reset', () => {
+    document.body.classList.remove('showform');
+  });
 }
 addAllBooksToDOMShelf();
+
+
 /* $(shelf)('.book>.status').addEventListener('click', (evt) => {
   console.log(evt);
 }); */
