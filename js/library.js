@@ -102,7 +102,8 @@ const libraryModule = (() => {
   const { showLibraryList, allUsers, withAddToLibraryList } = LibraryList([]);
   function Library(user) {
     const username = titleCase(user);
-    function withShelfFunctions(shelf = []) {
+    function withShelfFunctions() {
+      const shelf = [];
       return o =>
         myObject.merge(o, {
           get shelf() {
@@ -197,7 +198,7 @@ const libraryModule = (() => {
     }
     const newLibrary = pipe(
       withAddToLibraryList,
-      withShelfFunctions([]),
+      withShelfFunctions(),
       myObject.setConstructor(Library),
     )({
       get username() {
@@ -265,19 +266,19 @@ function addAllBooksToDOMShelf(library = Library.allUsers()[0]) {
   shelf.innerHTML = '';
   library.displayShelf().forEach((book, index) => {
     const bookElement = $Create('div');
-    bookElement.classList.add('book');
+    bookElement.classList.add('flex-column', 'book');
     bookElement.id = index;
     // bookElement.setAttribute('data-title', book.details().title);
     Object.entries(book.details()).forEach((key) => {
       if (key[0] !== 'Library') {
         const div = bookElement.appendChild($Create('div'));
-        div.classList.add(`${key[0]}`);
+        div.classList.add(`${key[0]}`, 'flex-row', 'flex-justify-center');
         const field = div.appendChild($Create('p'));
         field.textContent = key[0] === 'title' ? key[1] : `${titleCase(key[0])}: ${key[1]}`;
         // field.setAttribute('data-index', index);
         // field.setAttribute(`data-${key[0]}`, key[1]);
         if (key[0] === 'status') {
-          field.addEventListener('click', () => {
+          div.addEventListener('click', () => {
             book.toggleRead();
             addAllBooksToDOMShelf();
           });
@@ -286,10 +287,10 @@ function addAllBooksToDOMShelf(library = Library.allUsers()[0]) {
     });
     const deleteDiv = bookElement.appendChild($Create('div'));
     const deleteButton = deleteDiv.appendChild($Create('p'));
-    deleteDiv.classList.add('delete');
+    deleteDiv.classList.add('delete', 'flex-row', 'flex-justify-center');
     deleteButton.setAttribute('data-index', index);
     deleteButton.textContent = 'Delete';
-    deleteButton.addEventListener('click', () => {
+    deleteDiv.addEventListener('click', () => {
       const titleToDelete = book.title;
       const answer = confirm(`Are you sure you want to delete ${titleToDelete}?`);
       if (answer) {
