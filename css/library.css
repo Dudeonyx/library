@@ -1,27 +1,34 @@
 body {
 background-image: url(../images/OAYT5G0.jpg);
-display: flex;
-flex-flow: column wrap;
 /* box-sizing: border-box; */
 justify-content: flex-start;
-align-items: center;
 min-height: 100vh;
 background-size: cover;
 background-position: bottom left;
-padding: 0 3vw;
+padding: 0 2vw;
 }
-
-header {
+.flex-row {
   display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
+  flex-flow: row wrap;
+}
+.flex-column {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.flex-align-center{
   align-items: center;
-  margin-top: 20px;
+}
+.flex-justify-center {
+  justify-content: center;
+}
+header {
+  margin-top: 1vh;
   /* flex: 1 1 auto; */
   background-image: url(../images/kisspng-scroll-ornament-clip-art-scroll-banner-5b153aef847421.6354327415281179995425.png);
   /* background-attachment: fixed; */
   background-size: 100% 110%;
-  min-height: 15vh;
+  min-height: 12vh;
+  max-height: 20vh;
   /* border-radius: 10vh; */
   min-width: 80vw;
   background-repeat: no-repeat;
@@ -29,7 +36,7 @@ header {
 }
 body header p {
   /* flex: 1 1 auto; */
-  font-size: 4.2vw;
+  font-size: 4vw;
   font-family: 'Times New Roman', Times, serif;
   /* font-variant: small-caps; */
   font-weight: bold;
@@ -39,9 +46,7 @@ body header p {
 }
 body>div.shelf {
   /* flex: 1 1 auto; */
-  display: flex;
-  flex-flow: row wrap;
-  margin-top: 20px;
+  margin-top: 2vh;
   min-height: 70vh;
   min-width: 80vw;
   border: rgba(0, 0, 0, 0.301) solid 1px;
@@ -49,23 +54,21 @@ body>div.shelf {
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.171);
   /* filter: blur(11px); */
   background-color: rgba(255, 255, 255, 0.144);
-  padding: 10px;
+  padding: 1.1vmax 0 0 1.1vmax;
   /* margin-right:  -4px; */
   justify-content: space-around;
 }
 
-.shelf>.book {
-  flex: 1 1 60%;
-  display: flex;
-  flex-flow: column nowrap;
-  max-height: 25vh;
-  max-width: 23vh;
+.book {
+  flex: 1 1 35%;
+  max-height: 24vmax;
+  max-width: 24vmax;
   border: 1px solid rgba(0, 0, 0, 0.342);
   border-radius: 1.5vh;
-  padding: 2px;
+  padding: 0.32vmax;
   background-color: rgba(255, 255, 255, 0.411);
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.507);
-  margin: 0 8px 8px 0;
+  margin: 0 1.5vmax 1.9vmax 0;
   transition: all 0.5s ease-out;
 }
 
@@ -73,16 +76,12 @@ body>div.shelf {
   transform: scale(1.04);
 }
 .shelf>.book>div {
-  display: flex;
-  justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 2.5vh;
-  /* text-shadow: 1px -1px 0px rgb(107, 16, 16); */
-  /* cursor: pointer; */
-}
-.shelf>.book>div>p {
+  font-size: 2.2vmax;
+  padding: 1vh 0.5vmin;
   cursor: pointer;
+  /* text-shadow: 1px -1px 0px rgb(107, 16, 16); */
 }
 .shelf>.book>.title {
   flex: 1 1 35%;
@@ -90,6 +89,7 @@ body>div.shelf {
   /* padding-top: 1rem; */
   background-color:rgba(222, 184, 135, 0.5) ;
   border-radius: 1.5vh 1.5vh 0px 0px;
+  min-height: 2.5em;
 }
 .shelf>.book>.author {
   flex: 1 1 20%;
@@ -129,12 +129,13 @@ body>div.shelf {
 .btn {
   font: 1rem 'Fira Sans', sans-serif;
   padding: .5rem;
-  background: #86d0f0de;
+  background: rgba(138, 208, 240, 0.84);
   border: none;
-  border-radius: 4px;
+  border-radius: 0.5vmax;
   margin: 4px;
   display: inline-block;
   cursor: pointer;
+  font-size: 2.2vmax;
 }
 .btn:hover {
   transform: scale(1.04);
@@ -143,21 +144,46 @@ form fieldset label {
   display: inline-block;
   width: 18vw;
 }
+.back-blur {
+  overflow: hidden;
+  visibility: hidden;
+  z-index: -1;
+  max-height: 0;
+  max-width: 0;  
+}
 form {
+  font-size: 2.2vmax;
   max-height: 0;
   max-width: 0;
   transition: all 1s ease-out;
   /* margin-top: 20px; */
   /* min-height: 40vh; */
   overflow: hidden;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
+  /* position: fixed;
+  transform: translate(-50%,-50%); */
   visibility: hidden;
   z-index: -1;
 }
-body.showform form {
+input {
+  font-size: 2.1vmax;
+}
+body.showform .back-blur {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100vw;
+  max-height: 100vh;
+  background-color: rgba(220, 220, 220, 0.747);
+  z-index: 50;
+  visibility: visible;
+  transition: all 0.05s ease-out;
+}
+body.showform div.back-blur form {
   border: 1px solid rgba(0, 0, 0, 0.644);
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.418);
   border-radius: 1.5vh;
@@ -167,13 +193,7 @@ body.showform form {
   max-width: 90%;
   z-index: 99;
   visibility: visible;
-}
-body.showform .Bblur {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(220, 220, 220, 0.747);
-  z-index: 50;
+  transition: all 1s ease-out;
 }
 .center {
   text-align: center;
@@ -187,7 +207,7 @@ body.showform .Bblur {
 }
 .border {
   border: 1px solid rgba(0, 0, 0, 0.836);
-  border-radius: 1.4vh;
+  border-radius: 0.5vmax;
 }
 form>fieldset>div {
   min-height: 6vh;
