@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,49 +9,51 @@
   <link rel="stylesheet" type="text/css" media="screen" href="css/reset.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="css/library.css" />
 </head>
-<body>
-  <header>
+
+<body class="flex-column flex-align-center">
+  <header class="flex-column flex-justify-center flex-align-center">
     <p class="header">Welcome To My Library</p>
     <!-- <p>Feel free to browse or add more books as well.</p> -->
   </header>
-  <div class="shelf" data-username="Umeayo" ></div>
-  <input type="button" value="Add Book" class="btn shadow bold" id="addBook">
-  <form action="#" class="bold" id="newBookForm">
-    <fieldset>
-      <legend class="center">New Book Details</legend>
-      <div>
-        <label for="new-title">Book Title:</label>
-        <input name="title" id="new-title" type="text" required>
-      </div>
-      <div>
-        <label for="new-author">Book Author:</label>
-        <input type="text" name="author" id="new-author" required>
-      </div>
-      <div>
-        <label for="new-pages">No. of Pages:</label>
-        <input type="number" name="pages" id="new-pages" required>
-      </div>
-      <div>
-        <fieldset class="border">
-          <legend class="pad">Read Status</legend>
-          <div>
-            <label for="Read" class="pad">Read:</label>
-            <input type="radio" name="status" id="Read" value="Read">
-          </div>
-          <div>
-            <label for="Not-Read" class="pad">Not read:</label>
-            <input type="radio" name="status" id="Not-Read" checked value="Not read">
-          </div>
-        </fieldset>
-        <div class="center">
-          <!-- <label for="submit">Submit:</label> -->
-          <input type="submit" value="Submit" id="submiter" class="btn center">
-          <input type="reset" value="Cancel" id="reseter" class="btn center" formnovalidate>
+  <div class="shelf flex-row" data-username="Umeayo"></div>
+  <button type="button" class="btn shadow bold" id="addBook">Add Book</button>
+  <div class="back-blur">
+    <form action="#" class="bold" id="newBookForm">
+      <fieldset>
+        <legend class="center">New Book Details</legend>
+        <div>
+          <label for="new-title">Book Title:</label>
+          <input name="title" id="new-title" type="text" required>
         </div>
-      </div>
-  </fieldset>
-  </form>
-  <div class="Bblur"></div>
+        <div>
+          <label for="new-author">Book Author:</label>
+          <input type="text" name="author" id="new-author" required>
+        </div>
+        <div>
+          <label for="new-pages">No. of Pages:</label>
+          <input type="number" name="pages" id="new-pages" required>
+        </div>
+        <div>
+          <fieldset class="border">
+            <legend class="pad">Read Status</legend>
+            <div>
+              <label for="Read" class="pad">Read:</label>
+              <input type="radio" name="status" id="Read" value="Read">
+            </div>
+            <div>
+              <label for="Not-Read" class="pad">Not read:</label>
+              <input type="radio" name="status" id="Not-Read" checked value="Not read">
+            </div>
+          </fieldset>
+          <div class="center">
+            <input type="submit" value="Submit" id="submiter" class="btn center">
+            <input type="reset" value="Cancel" id="reseter" class="btn center" formnovalidate>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
 </body>
 <script src="js/library.js"></script>
+
 </html>
