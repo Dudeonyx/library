@@ -323,11 +323,11 @@ function addAllBooksToDOMShelf(library = Library.allUsers()[0]) {
       // document.body.classList.remove('showform');
       newBookForm.reset();
     }
-  }, true);
+  }, false);
   // const resetBook = $()('#reseter');
   newBookForm.addEventListener('reset', () => {
     document.body.classList.remove('showform');
-  });
+  }, true);
 }
 addAllBooksToDOMShelf();
 
