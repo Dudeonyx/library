@@ -307,8 +307,9 @@ function addAllBooksToDOMShelf(library = Library.allUsers()[0]) {
   });
   // const submitBook = $()('#submiter');
   const newBookForm = $()('#newBookForm');
-  newBookForm.addEventListener('submit', () => {
+  newBookForm.addEventListener('submit', (event) => {
     if (newBookForm.reportValidity()) {
+      event.preventDefault();
       const title = newBookForm.title.value;
       const author = titleCase(newBookForm.author.value);
       const status = newBookForm.status.value;
