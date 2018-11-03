@@ -7,14 +7,14 @@ background-size: cover;
 background-position: bottom left;
 padding: 0 2vw;
 }
-.flex-row {
+/* .flex-row {
   display: flex;
   flex-flow: row wrap;
 }
 .flex-column {
   display: flex;
   flex-flow: column nowrap;
-}
+} */
 .flex-align-center{
   align-items: center;
 }
@@ -44,86 +44,91 @@ body header p {
   text-shadow: 1px 1px 2px rgb(16, 4, 31);
   /* max-width: 70%; */
 }
-body>div.shelf {
+div.shelf {
   /* flex: 1 1 auto; */
   margin-top: 2vh;
   min-height: 70vh;
-  min-width: 80vw;
+  /* min-width: 80vw; */
   border: rgba(0, 0, 0, 0.301) solid 1px;
   border-radius: 1.5vh;
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.171);
   /* filter: blur(11px); */
   background-color: rgba(255, 255, 255, 0.144);
-  padding: 1.1vmax 0 0 1.1vmax;
+  padding: 1vmax;
   /* margin-right:  -4px; */
-  justify-content: space-around;
+  /* justify-content: space-around; */
 }
 
 .book {
-  flex: 1 1 35%;
-  max-height: 24vmax;
-  max-width: 24vmax;
+  /* flex: 1 1 35%; */
+  /* max-height: 15rem; */
+  /* height: auto; */
+  /* max-width: 24vmax; */
   border: 1px solid rgba(0, 0, 0, 0.342);
   border-radius: 1.5vh;
   padding: 0.32vmax;
   background-color: rgba(255, 255, 255, 0.411);
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.507);
-  margin: 0 1.5vmax 1.9vmax 0;
+  /* margin: 0 1.5vmax 1.9vmax 0; */
   transition: all 0.5s ease-out;
 }
 
-.shelf>.book:hover {
+.shelf .book:hover {
   transform: scale(1.04);
 }
-.shelf>.book>div {
+.shelf .book>div {
   align-items: center;
   font-weight: bold;
-  font-size: 2.2vmax;
-  padding: 1vh 0.5vmin;
+  /* font-size: 2.2vmax; */
+  padding: 1.5vh 0.5vmin;
   cursor: pointer;
   /* text-shadow: 1px -1px 0px rgb(107, 16, 16); */
 }
-.shelf>.book>.title {
+.book p {
+  margin: 0;
+}
+.shelf .book>.title {
   flex: 1 1 35%;
   box-sizing: border-box;
   /* padding-top: 1rem; */
   background-color:rgba(222, 184, 135, 0.5) ;
   border-radius: 1.5vh 1.5vh 0px 0px;
-  min-height: 2.5em;
+  min-height: 4.5em;
 }
-.shelf>.book>.author {
+.shelf .book>.author {
   flex: 1 1 20%;
   background-color:rgba(216, 170, 111, 0.5) ;
+  min-height: 2.5em;
   /* background-color: coral; */
 }
-.shelf>.book>.pages {
+.shelf .book>.pages {
   flex: 1 1 15%;
   background-color:rgba(211, 159, 92, 0.5) ;
   /* background-color: chocolate; */
 }
-.shelf>.book>.status {
+.shelf .book>.status {
   flex: 1 1 15%;
   background-color:rgba(206, 147, 70, 0.5) ;
   /* background-color:darkorange ; */
 }
-.shelf>.book>.delete {
+.shelf .book>.delete {
   flex: 1 1 15%;
   background-color:rgba(255, 0, 0, 0.438);
   border-radius: 0px 0px 1.5vh 1.5vh;
 }
-.shelf>.book>.title:hover {
+.shelf .book>.title:hover {
   background-color:rgb(221, 177, 120) ;
 }
-.shelf>.book>.author:hover {
+.shelf .book>.author:hover {
   background-color:rgb(216, 170, 111) ;
 }
-.shelf>.book>.pages:hover {
+.shelf .book>.pages:hover {
   background-color:rgb(211, 159, 92) ;
 }
-.shelf>.book>.status:hover {
+.shelf .book>.status:hover {
   background-color:rgb(206, 147, 70) ;
 }
-.shelf>.book>.delete:hover {
+.shelf .book>.delete:hover {
   background-color:rgb(255, 0, 0);
 }
 .btn {

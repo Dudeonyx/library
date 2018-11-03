@@ -257,7 +257,7 @@ function $All(element = document) {
 function $Create(element) {
   return document.createElement(element);
 }
-const shelf = $()('.shelf');
+const shelf = $()('.inner-shelf');
 
 const testBook = $Create('div');
 testBook.classList.add('book');
@@ -266,13 +266,13 @@ function addAllBooksToDOMShelf(library = Library.allUsers()[0]) {
   shelf.innerHTML = '';
   library.displayShelf().forEach((book, index) => {
     const bookElement = $Create('div');
-    bookElement.classList.add('flex-column', 'book');
+    bookElement.classList.add('col-6', 'col-sm-6', 'col-md-4', 'col-lg-2', 'book', 'd-flex', 'flex-column');
     bookElement.id = index;
     // bookElement.setAttribute('data-title', book.details().title);
     Object.entries(book.details()).forEach((key) => {
       if (key[0] !== 'Library') {
         const div = bookElement.appendChild($Create('div'));
-        div.classList.add(`${key[0]}`, 'flex-row', 'flex-justify-center');
+        div.classList.add(`${key[0]}`, 'd-flex', 'flex-row', 'justify-content-center');
         const field = div.appendChild($Create('p'));
         field.textContent = key[0] === 'title' ? key[1] : `${titleCase(key[0])}: ${key[1]}`;
         // field.setAttribute('data-index', index);
@@ -287,7 +287,7 @@ function addAllBooksToDOMShelf(library = Library.allUsers()[0]) {
     });
     const deleteDiv = bookElement.appendChild($Create('div'));
     const deleteButton = deleteDiv.appendChild($Create('p'));
-    deleteDiv.classList.add('delete', 'flex-row', 'flex-justify-center');
+    deleteDiv.classList.add('delete', 'd-flex', 'flex-row', 'justify-content-center');
     deleteButton.setAttribute('data-index', index);
     deleteButton.textContent = 'Delete';
     deleteDiv.addEventListener('click', () => {
