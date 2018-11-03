@@ -133,7 +133,7 @@ div.shelf {
 .shelf .book>.delete:hover {
   background-color:rgb(255, 0, 0);
 }
-.btn {
+/* .btn {
   font: 1rem 'Fira Sans', sans-serif;
   padding: .5rem;
   background: rgba(138, 208, 240, 0.84);
@@ -143,7 +143,7 @@ div.shelf {
   display: inline-block;
   cursor: pointer;
   font-size: 2.2vmax;
-}
+} */
 .btn:hover {
   transform: scale(1.04);
 }
