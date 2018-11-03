@@ -265,8 +265,10 @@ testBook.classList.add('book');
 function addAllBooksToDOMShelf(library = Library.allUsers()[0]) {
   shelf.innerHTML = '';
   library.displayShelf().forEach((book, index) => {
-    const bookElement = $Create('div');
-    bookElement.classList.add('col-6', 'col-sm-6', 'col-md-4', 'col-lg-2', 'book', 'd-flex', 'flex-column');
+    const bookDiv = $Create('div');
+    const bookElement = bookDiv.appendChild($Create('div'));
+    bookDiv.classList.add('col-6', 'col-sm-4', 'col-md-4', 'col-lg-3', 'book-container');
+    bookElement.classList.add('book', 'd-flex', 'flex-column', 'flex-fill');
     bookElement.id = index;
     // bookElement.setAttribute('data-title', book.details().title);
     Object.entries(book.details()).forEach((key) => {
@@ -299,7 +301,7 @@ function addAllBooksToDOMShelf(library = Library.allUsers()[0]) {
         alert(`${titleToDelete} has been deleted!`);
       }
     });
-    shelf.appendChild(bookElement);
+    shelf.appendChild(bookDiv);
   });
   const addBook = $()('#addBook');
   addBook.addEventListener('click', () => {
